@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Container, CssBaseline } from '@mui/material';
+import Header from './components/Header';
+import Home from './pages/Home';
+import Portfolio from './pages/Portfolio';
+import TopCryptos from './pages/TopCryptos';
+import PriceChart from './pages/PriceChart';
+import Login from './pages/Login';
+import ProtectedRoute from './pages/ProtectedRoute';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <CssBaseline />
+      {/* <Header /> */}
+      
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route  path="/" element={<Header />}>
+            <Route Route  path="" element={<ProtectedRoute />}>
+              <Route path="home" element={<Home />} />
+              <Route path="portfolio" element={<Portfolio />} />
+              <Route path="top-cryptos" element={<TopCryptos />} />
+              <Route path="price-chart" element={<PriceChart />} />
+            </Route>
+          </Route>
+          <Route path="*" element={<Navigate to='/' />} />
+        </Routes>
+      
+    </Router>
   );
 }
 
